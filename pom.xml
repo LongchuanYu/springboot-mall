@@ -7,10 +7,16 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>mall</name>
     <description>mall</description>
-    <!-- <???> 父pom文件一定要加这个 -->
+    <!-- ??? 父pom文件一定要加这个 -->
     <packaging>pom</packaging>
     <modules>
         <module>mall_common</module>
+        <module>mall_interface</module>
+        <module>mall_pojo</module>
+        <module>mall_service_googs</module>
+        <module>mall_web_manager</module>
+        <module>mall_common_service</module>
+        <module>mall_common_web</module>
     </modules>
 
     <properties>
