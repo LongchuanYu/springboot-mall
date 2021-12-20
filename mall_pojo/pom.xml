@@ -9,6 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mall_pojo</artifactId>
+    <description>mall_pojo</description>
 
     <dependencies>
         <dependency>

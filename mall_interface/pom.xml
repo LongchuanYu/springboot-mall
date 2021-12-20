@@ -9,6 +9,7 @@
     </parent>
 
     <artifactId>mall_interface</artifactId>
+    <description>mall_interface</description>
 
     <dependencies>
         <dependency>
