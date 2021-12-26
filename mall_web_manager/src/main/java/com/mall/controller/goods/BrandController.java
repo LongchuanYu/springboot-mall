@@ -14,7 +14,7 @@ import java.util.List;
 public class BrandController {
     @Reference
     private BrandService brandService;
-    @GetMapping("/findAll")
+    @RequestMapping("/findAll")
     public List<Brand> findAll(){
         return brandService.findAll();
     }

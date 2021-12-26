@@ -63,12 +63,12 @@ Could not find artifact com.mall:mall_interface:jar:0.0.1-SNAPSHOT -> [Help 1]
 #### [ 原因分析 ]
 ```
 执行clean - install后发现报错： webxml attribute is required
-排查后发现mall_service_googs没有加webapp/WEB-INF/web.xml文件
+排查后发现mall_service_goods没有加webapp/WEB-INF/web.xml文件
 ```
 
-## mall_service_googs 和 mall_web_manager都具有`web.xml`文件，他们之间有什么区别呢？
+## mall_service_goods 和 mall_web_manager都具有`web.xml`文件，他们之间有什么区别呢？
 ```
-mall_service_googs: 用于启动后端
+mall_service_goods: 用于启动后端
 mall_web_manager: 用于启动前端
 ```
 
@@ -83,9 +83,34 @@ mall_web_manager: 用于启动前端
 11:36:17,685 DEBUG DispatcherServlet:1000 - Successfully completed request
 ```
 
-#### [ 解决方案 ]
+#### [ 解决方案1 ]
 ```
 缺少applicationContext-*.xml文件，并且文件里面需要开启注解。
 
 最主要原因是：依赖了错误的模块，而这个模块的xml文件里面是空的，没有开启注解，导致了404.
+需要依赖maoo_common_web/src/main/resources/applicationContext-config.xml的注解。
 ```
+#### [ 解决方案2 ]
+请先开启zookeeper ！！
+
+## 如何解决：`Plugin 'org.apache.maven.plugins:maven-compiler-plugin:3.6.2' not found `
+
+#### [ 解决方案]
+
+1. 主pom文件加上version: 3.8.1：
+    ```
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    ```
+2. mall -> lifecycle -> clean 后再 install

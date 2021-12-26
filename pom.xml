@@ -13,7 +13,7 @@
         <module>mall_common</module>
         <module>mall_interface</module>
         <module>mall_pojo</module>
-        <module>mall_service_googs</module>
+        <module>mall_service_goods</module>
         <module>mall_web_manager</module>
         <module>mall_common_service</module>
         <module>mall_common_web</module>
