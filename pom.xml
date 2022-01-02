@@ -11,12 +11,18 @@
     <packaging>pom</packaging>
     <modules>
         <module>mall_common</module>
+        <module>mall_common_service</module>
+        <module>mall_common_web</module>
         <module>mall_interface</module>
         <module>mall_pojo</module>
         <module>mall_service_goods</module>
+        <module>mall_service_business</module>
+        <module>mall_service_order</module>
+        <module>mall_service_system</module>
+        <module>mall_service_user</module>
+        <module>mall_service_config</module>
         <module>mall_web_manager</module>
-        <module>mall_common_service</module>
-        <module>mall_common_web</module>
+
     </modules>
 
     <properties>
