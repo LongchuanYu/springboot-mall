@@ -116,7 +116,7 @@ mall_web_manager: 用于启动前端
 2. mall -> lifecycle -> clean 后再 install
 
 ## 前端访问api报错，后端dubbo报错
-#### [ 描述 1 ]
+#### [ 描述 ]
 前端报错：
 ```
 HTTP Status 500 - Request processing failed; 
@@ -132,29 +132,35 @@ create cxid:0xc zxid:0x16 txntype:-1 reqpath:n/a Error Path:/dubbo/com.mall.serv
 KeeperErrorCode = NodeExists for /dubbo/com.mall.service.goods.BrandService/routers
 ```
 
-#### [ 解决方案 1 ]
+#### [ 解决方案 ]
 各个module去mvn clean install一下
+
+
+## 后端数据库链接失败
+#### [ 描述 1 ]
+```Could not create connection to database server```
+#### [ 解决方案 1]
+```
+然后我查了一下发现是因为我的mysqll版本号和maven中pom文件中配置的mysql-connector版本号不同，在将pom文件中的版本号改成本地mysql的版本号以后再更新maven问题解决。
+
+小tips:
+1.如何知道自己的mysql版本号：
+在任何一个能执行sql语句的地方执行语句：select version() from dual;
+它就会返回一个版本号
+
+2.如果这个方法不好使，可以试试将mysql驱动名改成：com.mysql.cj.jdbc.Driver
+————————————————
+版权声明：本文为CSDN博主「小王不是胖虎」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_41525021/article/details/93048277
+```
 
 #### [ 描述 2 ]
 ```
-Failed to invoke the method findAll in the service com.mall.service.goods.BrandService. 
-Tried 1 times of the providers [172.17.0.1:20881] (1/1) from the registry 127.0.0.1:2181 
-on the consumer 172.17.0.1 using the dubbo version 2.6.0. 
-Last error is: Invoke remote method timeout. 
-method: findAll, 
-provider: dubbo://172.17.0.1:20881/com.mall.service.goods.BrandService?
-anyhost=true&application=manager&check=false&default.accepts=1000&
-default.check=false&default.retries=0&default.timeout=8000&
-dubbo=2.6.0&
-generic=false&interface=com.mall.service.goods.BrandService&
-methods=add,findList,findById,update,findPage,delete,findAll&pid=17133&
-register.ip=172.17.0.1&remote.timestamp=1641093145106&revision=0.0.1-SNAPSHOT&
-side=consumer&timestamp=1641093177809, 
-cause: Waiting server-side response timeout by scan timer. 
-start time: 2022-01-02 11:13:25.900, end time: 2022-01-02 11:13:33.925, 
-client elapsed: 33 ms, server elapsed: 7991 ms, timeout: 8000 ms, 
-request: Request [id=0, version=2.0.0, twoway=true, event=false, broken=false, data=RpcInvocation 
-[methodName=findAll, parameterTypes=[], arguments=[], 
-attachments={path=com.mall.service.goods.BrandService, interface=com.mall.service.goods.BrandService, version=0.0.0, timeout=8000}]], 
-channel: /172.17.0.1:40638 -> /172.17.0.1:20881
+Cannot resolve com.mysq.jdbc.Connection.ping method. Will use 'SELECT 1' instead
+```
+#### [ 解决方案 2 ]
+```
+我的mysql 是8.0.15版本，而我的druid是1.0.23版本
+
+解决方法：将druid修改为1.1.10版本即可
 ```
