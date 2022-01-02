@@ -114,3 +114,47 @@ mall_web_manager: 用于启动前端
     </build>
     ```
 2. mall -> lifecycle -> clean 后再 install
+
+## 前端访问api报错，后端dubbo报错
+#### [ 描述 1 ]
+前端报错：
+```
+HTTP Status 500 - Request processing failed; 
+nested exception is com.alibaba.dubbo.rpc.RpcException: 
+No provider available from registry 127.0.0.1:2181 for 
+service com.mall.service.goods.BrandService on consumer 192.168.31.109 use dubbo version 2.6.0, 
+may be providers disabled or not registered ?
+```
+zookeeper报错：
+```
+Got user-level KeeperException when processing sessionid:0x100001f173c0003 type:
+create cxid:0xc zxid:0x16 txntype:-1 reqpath:n/a Error Path:/dubbo/com.mall.service.goods.BrandService/routers Error:
+KeeperErrorCode = NodeExists for /dubbo/com.mall.service.goods.BrandService/routers
+```
+
+#### [ 解决方案 1 ]
+各个module去mvn clean install一下
+
+#### [ 描述 2 ]
+```
+Failed to invoke the method findAll in the service com.mall.service.goods.BrandService. 
+Tried 1 times of the providers [172.17.0.1:20881] (1/1) from the registry 127.0.0.1:2181 
+on the consumer 172.17.0.1 using the dubbo version 2.6.0. 
+Last error is: Invoke remote method timeout. 
+method: findAll, 
+provider: dubbo://172.17.0.1:20881/com.mall.service.goods.BrandService?
+anyhost=true&application=manager&check=false&default.accepts=1000&
+default.check=false&default.retries=0&default.timeout=8000&
+dubbo=2.6.0&
+generic=false&interface=com.mall.service.goods.BrandService&
+methods=add,findList,findById,update,findPage,delete,findAll&pid=17133&
+register.ip=172.17.0.1&remote.timestamp=1641093145106&revision=0.0.1-SNAPSHOT&
+side=consumer&timestamp=1641093177809, 
+cause: Waiting server-side response timeout by scan timer. 
+start time: 2022-01-02 11:13:25.900, end time: 2022-01-02 11:13:33.925, 
+client elapsed: 33 ms, server elapsed: 7991 ms, timeout: 8000 ms, 
+request: Request [id=0, version=2.0.0, twoway=true, event=false, broken=false, data=RpcInvocation 
+[methodName=findAll, parameterTypes=[], arguments=[], 
+attachments={path=com.mall.service.goods.BrandService, interface=com.mall.service.goods.BrandService, version=0.0.0, timeout=8000}]], 
+channel: /172.17.0.1:40638 -> /172.17.0.1:20881
+```
