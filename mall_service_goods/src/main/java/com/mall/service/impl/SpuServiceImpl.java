@@ -29,7 +29,7 @@ public class SpuServiceImpl implements SpuService {
     /**
      * 分页查询
      * @param page 页码
-     * @param size 每页记录数
+     * @param size 每页记录数saveGoods(Goods
      * @return 分页结果
      */
     public PageResult<Spu> findPage(int page, int size) {
@@ -94,6 +94,8 @@ public class SpuServiceImpl implements SpuService {
     public void delete(String id) {
         spuMapper.deleteByPrimaryKey(id);
     }
+
+
 
     /**
      * 构建查询条件
