@@ -2,13 +2,19 @@ package com.mall.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.mall.dao.CategoryMapper;
 import com.mall.dao.SpuMapper;
 import com.mall.entity.PageResult;
+import com.mall.pojo.goods.Category;
+import com.mall.pojo.goods.Goods;
 import com.mall.pojo.goods.Spu;
 import com.mall.service.goods.SpuService;
+import com.mall.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +23,12 @@ public class SpuServiceImpl implements SpuService {
 
     @Autowired
     private SpuMapper spuMapper;
+
+    @Autowired
+    private IdWorker idWorker;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
 
     /**
      * 返回全部记录
@@ -95,6 +107,18 @@ public class SpuServiceImpl implements SpuService {
         spuMapper.deleteByPrimaryKey(id);
     }
 
+
+    /**
+     * 保存商品
+     */
+    @Transactional
+    public void saveGoods(Goods goods) {
+        Spu spu = goods.getSpu();
+        spu.setId(idWorker.nextId() + "");
+        spuMapper.insert(spu);
+        Date date = new Date();
+        Category category = categoryMapper
+    }
 
 
     /**

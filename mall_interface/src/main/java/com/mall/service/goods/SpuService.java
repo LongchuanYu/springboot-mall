@@ -1,5 +1,6 @@
 package com.mall.service.goods;
 import com.mall.entity.PageResult;
+import com.mall.pojo.goods.Goods;
 import com.mall.pojo.goods.Spu;
 
 import java.util.*;
@@ -31,5 +32,7 @@ public interface SpuService {
 
 
     public void delete(String id);
+
+    public void saveGoods(Goods goods);
 
 }
